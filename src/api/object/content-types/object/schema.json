@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "objects",
+  "info": {
+    "singularName": "object",
+    "pluralName": "objects",
+    "displayName": "Object"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Cameras": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::camera.camera",
+      "mappedBy": "Object"
+    }
+  }
+}

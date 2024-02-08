@@ -19,6 +19,12 @@
     },
     "Temparature": {
       "type": "decimal"
+    },
+    "Object": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::object.object",
+      "inversedBy": "Cameras"
     }
   }
 }

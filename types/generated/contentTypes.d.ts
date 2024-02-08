@@ -376,6 +376,11 @@ export interface ApiCameraCamera extends Schema.CollectionType {
     Name: Attribute.String;
     Active: Attribute.Boolean;
     Temparature: Attribute.Decimal;
+    Object: Attribute.Relation<
+      'api::camera.camera',
+      'manyToOne',
+      'api::object.object'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -387,6 +392,40 @@ export interface ApiCameraCamera extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::camera.camera',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiObjectObject extends Schema.CollectionType {
+  collectionName: 'objects';
+  info: {
+    singularName: 'object';
+    pluralName: 'objects';
+    displayName: 'Object';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    Name: Attribute.String;
+    Cameras: Attribute.Relation<
+      'api::object.object',
+      'oneToMany',
+      'api::camera.camera'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::object.object',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::object.object',
       'oneToOne',
       'admin::user'
     > &
@@ -824,6 +863,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::camera.camera': ApiCameraCamera;
+      'api::object.object': ApiObjectObject;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
